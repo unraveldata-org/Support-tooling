@@ -94,5 +94,5 @@ else:
         with open(confFile, 'w') as g:
             f.write(g)
     else:
-        print("Aborting write file, unknown keybaord response: \"%s\" % write")
-        continue
+        print("Aborting write file, unknown keyboard response: \"%s\" % write")
+        
