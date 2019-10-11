@@ -1,0 +1,27 @@
+
+PASSWORD ENCRYPTION
+
+Use tagcmdPassword to encrypt the Yarn API password:
+
+  $ tagcmdPassword.py encrypt
+
+  $ Password to encrypt: *******
+
+The script will provide a config line to add to unravel.properties
+
+If you want to test a decrypt use:
+
+  $ tagcmdPassword.py decrypt <encrypted password>
+
+
+
+UNRAVEL PROPERTIES
+------------------
+
+Define the following properties as appropriate the environment
+
+	tagcmdpy.yarn.api.password=<encrypted password from tagcmdPassword.py encrypt >
+	tagcmdpy.yarn.api.user=<Ambari User with API access>
+	tagcmdpy.yarn.api.host=<Ambari host>
+	tagcmdpy.yarn.api.port=<Ambari Port>
+	tagcmdpy.yarn.api.ssl=<False=http / True = https>
