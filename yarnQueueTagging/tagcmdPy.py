@@ -16,6 +16,7 @@ USERNAME=sys.argv[1]
 
 #GET API PASSWORD FROM UNRAVEL.PROPERTIES
 separator = "="
+comment = "#"
 usernameProp = 'tagcmdpy.yarn.api.user'
 passwordProp = 'tagcmdpy.yarn.api.password'
 ambariHostProp = 'tagcmdpy.yarn.api.host'
@@ -24,33 +25,37 @@ ambariSslProp = 'tagcmdpy.yarn.api.ssl'
 
 with open('/usr/local/unravel/etc/unravel.properties') as f:
     for line in f:
-        if separator in line:
-            if usernameProp in line:
-                name, value = line.split(separator, 1)
-                yarnApiUser = value.strip()
-                yarnApiUser = yarnApiUser.replace('\n','')
-            if passwordProp in line:
-                name, value = line.split(separator, 1)
-                yarnApiPass = value.strip()
-            if ambariHostProp in line:
-                name, value = line.split(separator, 1)
-                yarnApiHost = value.strip()
-                yarnApiHost = yarnApiHost.replace('\n','')
-            if ambariPortProp in line:
-                name, value = line.split(separator, 1)
-                yarnApiPort = value.strip()
-                yarnApiPort = yarnApiPort.replace('\n','')
-            if ambariSslProp in line:
-                name, value = line.split(separator, 1)
-                yarnApiSsl = value.strip()
-                yarnApiSsl = yarnApiSsl.replace('\n','')
-                if yarnApiSsl == 'False':
-                    yarnApiSsl = 'http'
-                else:
-                    yarnApiSsl = 'https'
+        if comment in line:
+            pass
+        else:
+            if separator in line:
+                if usernameProp in line:
+                    name, value = line.split(separator, 1)
+                    yarnApiUser = value.strip()
+                    yarnApiUser = yarnApiUser.replace('\n','')
+                if passwordProp in line:
+                    name, value = line.split(separator, 1)
+                    yarnApiPass = value.strip()
+                if ambariHostProp in line:
+                    name, value = line.split(separator, 1)
+                    yarnApiHost = value.strip()
+                    yarnApiHost = yarnApiHost.replace('\n','')
+                if ambariPortProp in line:
+                    name, value = line.split(separator, 1)
+                    yarnApiPort = value.strip()
+                    yarnApiPort = yarnApiPort.replace('\n','')
+                if ambariSslProp in line:
+                    name, value = line.split(separator, 1)
+                    yarnApiSsl = value.strip()
+                    yarnApiSsl = yarnApiSsl.replace('\n','')
+                    if yarnApiSsl == 'False':
+                        yarnApiSsl = 'http'
+                    else:
+                        yarnApiSsl = 'https'
 
 DECRYPT_PASS = tagcmdSecure.decryptPassword(yarnApiPass)
 DECRYPT_PASS = DECRYPT_PASS.strip('\n')
+print(DECRYPT_PASS)
 r = requests.get("%s://%s:%s/api/v1/views/CAPACITY-SCHEDULER/versions/1.0.0/instances/AUTO_CS_INSTANCE/resources/scheduler/configuration" % (yarnApiSsl, yarnApiHost, yarnApiPort), auth=(yarnApiUser, DECRYPT_PASS))
 
 
