@@ -107,7 +107,7 @@ except OperationalError:
     pass
 
 try:
-    updateprivs="FLUSH PRIVILEGES;" % ops['shost']
+    updateprivs="FLUSH PRIVILEGES;"
     updateprivs = engine.execute(addUsrSql)
 except OperationalError:
     pass
